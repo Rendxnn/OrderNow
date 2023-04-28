@@ -1,6 +1,12 @@
 from django.contrib import admin
-from .models import Cashier
+from .models import UserType
 
 
-admin.site.register(Cashier)
+class UserTypeInline(admin.StackedInline):
+    model = UserType
+    can_delete = False
+    verbose_name_plural = "UserType"
+
+
+admin.site.register(UserType)
 
