@@ -8,4 +8,6 @@ from django.urls import reverse
 class Table(models.Model):
     code = models.CharField(max_length=7)
     capacity = models.IntegerField()
+    restaurant = models.ForeignKey('restaurants.Restaurant', on_delete=models.CASCADE)
+
     
