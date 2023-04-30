@@ -9,11 +9,6 @@
 <body>
 {% extends 'base.html' %}
 {% block content %}
-{% if user.is_authenticated %}
-<h2>Ha ingresado como cajero</h2>
-<h3>Pedidos activos:</h3>
-<h3>Mesas activas</h3>
-{% else %}
 <h1>Bienvenido a OrderNow</h1>
 <br>
 <form action="">
@@ -25,7 +20,7 @@
     <br>
     <button type="submit" class="btn btn-primary mb-3">Buscar mesa</button>
 </form>
-{% endif %}
+
 {% endblock content %}
 
 </body>

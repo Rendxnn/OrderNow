@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cajero</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Ha ingresado como cajero de {{ restaurant.name }}</h2>
+<hr>
+<h3>Pedidos:</h3>
+<form action="">
+    <div class="row">
+        {% for table, order in orders %}
+        <div class="card">
+            <h2 class="card-title">Mesa {{ table.id }}</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>id</th>
+                </tr>
+                {% for product in order %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.id }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+</form>
+
+
+{% endblock content %}
+</body>
+</html>

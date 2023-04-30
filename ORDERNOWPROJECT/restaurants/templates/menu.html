@@ -11,22 +11,33 @@
 {% block content %}
 <h1>Bienvenido a {{ restaurant.name }}</h1>
 <hr>
-
-<div class="row">
-    {% for product in products %}
-    <div class="col-sm-6">
-        <div class="card">
-            <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description }}</p>
-                <a href="#" class="btn btn-primary">Añadir a pedido</a>
+<form action="">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-sm-6">
+            <div class="card">
+                <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p>Gramaje: {{ product.grammage }} gramos.</p>
+                    <p>Precio: {{ product.price }} (COP).</p>
+                    <select class="custom-select mb-3" id="inputGroupSelect01" name="{{ product.name }}">
+                        <option selected>Cantidad de producto</option>
+                        {% for i in numbers %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
+        <br>
+        <br>
+        {% endfor %}
     </div>
     <br>
-    {% endfor %}
-</div>
+    <button type="submit" class="btn btn-primary mb-3">Registrar Productos</button>
+</form>
 {% endblock content %}
 </body>
 </html>
