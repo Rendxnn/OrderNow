@@ -10,6 +10,7 @@
 
 <h2>Ha ingresado como cajero de {{ restaurant.name }}</h2>
 <hr>
+{% if orders %}
 <h3>Pedidos:</h3>
 <form action="">
     <div class="row">
@@ -30,10 +31,28 @@
                 </tr>
                 {% endfor %}
             </table>
+
+            {% for table_observation, observation in observations %}
+            {% if table == table_observation %}
+
+            <h3>Observaciones:</h3>
+            <ul>
+                {% for item in observation %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </form>
+
+{% else %}
+
+<h3>No hay pedidos activos</h3>
+
+{% endif %}
 
 
 {% endblock content %}

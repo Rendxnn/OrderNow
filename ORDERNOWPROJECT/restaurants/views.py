@@ -22,11 +22,16 @@ def menu(request):
             order.delete_product_from_order(table, list(active_orders.values())[0][i].name)
             break
     active_orders = order.search_table_orders(restaurant, table)
+    observations = request.GET.get('observations')
+    if observations:
+        order.add_observation(table, observations)
     return render(request, 'menu.html',
                   {'table': table, 'restaurant': restaurant, 'products': products, 'numbers': range(1, 11),
-                   'orders': active_orders.items()})
+                   'orders': active_orders.items(), 'observations': observations})
 
 
 def cashier(request):
     orders = order.search_table_orders(restaurant, None)
-    return render(request, 'cashier.html', {'restaurant': restaurant, 'orders': orders.items()})
+    observations = order.search_table_observations(restaurant, None)
+    return render(request, 'cashier.html',
+                  {'restaurant': restaurant, 'orders': orders.items(), 'observations': observations.items()})
