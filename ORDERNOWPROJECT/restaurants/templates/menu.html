@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description }}</p>
-                    <p>Gramaje: {{ product.grammage }} gramos.</p>
+                    <p>Gramaje / Contenido: {{ product.grammage }} (gs / mls).</p>
                     <p>Precio: {{ product.price }} (COP).</p>
                     <select class="custom-select mb-3" id="inputGroupSelect01" name="{{ product.name }}">
                         <option selected>Cantidad de producto</option>
@@ -102,7 +102,7 @@
 
 {% endif %}
 
-{% if unpaid_orders != None %}
+{% if unpaid_orders %}
 <hr>
 <h2>Pendientes de pago:</h2>
 <br>

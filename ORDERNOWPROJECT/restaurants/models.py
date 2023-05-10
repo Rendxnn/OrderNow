@@ -18,7 +18,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/product_images')
 
     def __str__(self):
-        return self.name
+        return self.restaurant.__str__() + ' ' + self.name
 
 
 class Table(models.Model):
