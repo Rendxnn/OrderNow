@@ -75,13 +75,59 @@
                     </td>
                 </tr>
                 {% endfor %}
+                <tr>
+                    {% for table, total in totals %}
+                    <td><b>Total</b></td>
+                    <td><b>{{ total }}</b></td>
+                    <td></td>
+                    <td></td>
+                    {% endfor %}
+                </tr>
             </table>
+            {% for table_observation, observation in active_observations %}
+
+            <h3>Observaciones:</h3>
+            <ul>
+                {% for item in observation %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
 
 </form>
 
+
+{% endif %}
+
+{% if unpaid_orders != None %}
+<hr>
+<h2>Pendientes de pago:</h2>
+<br>
+<form action="">
+    <table class="table table-striped">
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>id</th>
+        </tr>
+        {% for order in unpaid_orders %}
+        <tr>
+            <td>{{ order.product.name }}</td>
+            <td>{{ order.product.price }}</td>
+            <td>{{ order.product.id }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th>Total</th>
+            <td>{{ total_unpaid }}</td>
+            <td></td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-primary mb-3">Pagar</button>
+</form>
 {% endif %}
 {% endblock content %}
 </body>

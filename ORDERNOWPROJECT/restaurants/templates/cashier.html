@@ -12,9 +12,10 @@
 <hr>
 {% if orders %}
 <h3>Pedidos:</h3>
+{% for table, order in orders %}
 <form action="">
     <div class="row">
-        {% for table, order in orders %}
+
         <div class="card">
             <h2 class="card-title">Mesa {{ table.id }}</h2>
             <table class="table table-striped">
@@ -30,6 +31,15 @@
                     <td>{{ product.id }}</td>
                 </tr>
                 {% endfor %}
+                <tr>
+                    {% for table_total, total in totals %}
+                    {% if table_total == table %}
+                    <td><b>Total</b></td>
+                    <td><b>{{ total }}</b></td>
+                    <td></td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
             </table>
 
             {% for table_observation, observation in observations %}
@@ -43,9 +53,13 @@
             </ul>
             {% endif %}
             {% endfor %}
-            {% endfor %}
+            <button type="submit" class="btn btn-success mb-3" name="delete_{{ table.id }}_order">Despachar Pedido</button>
+
         </div>
+
     </div>
+    <br>
+    {% endfor %}
 </form>
 
 {% else %}

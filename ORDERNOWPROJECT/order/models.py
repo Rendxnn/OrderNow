@@ -16,3 +16,14 @@ class Observation(models.Model):
 
     def __str__(self):
         return self.table.__str__()
+
+
+class DispatchedOrder(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    date = models.DateField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    paid = models.BooleanField()
+
+    def __str__(self):
+        return self.table.__str__() + '-' + self.date.__str__()
+
