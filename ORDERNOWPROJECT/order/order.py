@@ -1,6 +1,9 @@
 from .models import Order, Observation, DispatchedOrder
 from restaurants.models import Product, Table
 from datetime import date
+from io import BytesIO
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 def add(product, quantity, table):
@@ -73,3 +76,43 @@ def search_dispatched_pending(table):
     unpaid = DispatchedOrder.objects.all().filter(table=table, paid=False)
     total_unpaid = sum([dispatched.product.price for dispatched in unpaid])
     return unpaid, f'{total_unpaid:,}'
+
+
+def pay_dispatched_order(table):
+    unpaid = DispatchedOrder.objects.all().filter(table=table, paid=False)
+    for order in unpaid:
+        order.paid = True
+        order.save()
+
+
+def undo_dispatch(restaurant):
+    last_dispatched = DispatchedOrder.objects.all()
+    last_order = []
+    first = None
+    for order in reversed(last_dispatched):
+        if order.product.restaurant == restaurant and not order.paid:
+            if not first:
+                first = order.table
+                last_order.append(order)
+                order.delete()
+            elif order.table == first:
+                last_order.append(order)
+                order.delete()
+            else:
+                break
+    for order in last_order:
+        undone = Order(table=order.table, product=order.product)
+        undone.save()
+
+
+def generate_receipt(restaurant, table, order, total):
+    template = get_template('receipt.html')
+    context = {'restaurant': restaurant, 'table': table, 'order': order, 'total': total}
+    html = template.render(context)
+
+    file_name = f'media/receipts/receipt{table.__str__()}.pdf'
+    file = open(file_name, 'w+b')
+
+    pisa.CreatePDF(html, dest=file)
+    file.close()
+

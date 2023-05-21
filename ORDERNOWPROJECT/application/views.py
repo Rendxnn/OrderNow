@@ -8,6 +8,10 @@ def home(request):
         restaurant = request.user.type.restaurant
         rest_views.restaurant = restaurant
         return redirect('restaurants/cashier')
+    elif request.user.is_authenticated and request.user.type and request.user.type.type_of_user == 2:
+        restaurant = request.user.type.restaurant
+        rest_views.restaurant = restaurant
+        return redirect('restaurants/restaurant_admin')
     table_code = request.GET.get('table_code')
     if table_code:
         table = restaurants.search_table(table_code)

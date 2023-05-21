@@ -12,3 +12,4 @@ def search_table(table_code):
 def search_product(product_name, restaurant):
     product = Product.objects.all().filter(name=product_name, restaurant=restaurant)
     return product
+

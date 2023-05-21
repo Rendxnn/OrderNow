@@ -25,5 +25,5 @@ class DispatchedOrder(models.Model):
     paid = models.BooleanField()
 
     def __str__(self):
-        return self.table.__str__() + '-' + self.date.__str__()
+        return f'{self.date.__str__()} {self.table.__str__()} {self.product.__str__()}'
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+</head>
+<body>
+<h3>{{ restaurant.name }} </h3>
+<h5>NIT: {{ restaurant.NIT }}</h5>
+<h5>Mesa: {{ table.id }}</h5>
+<hr>
+<h2>Productos:</h2>
+<table style="table-layout:fixed">
+    <tr>
+        <td><b>Nombre</b></td>
+        <td><b>Precio</b></td>
+    </tr>
+    {% for dispatched_order in order %}
+
+    <tr>
+        <td>{{ dispatched_order.product.name }}</td>
+        <td>{{ dispatched_order.product.price }}</td>
+    </tr>
+
+    {% endfor %}
+    <tr>
+        <td><b>Total</b></td>
+        <td><b>{{ total }}</b></td>
+    </tr>
+</table>
+<hr>
+</body>
+</html>

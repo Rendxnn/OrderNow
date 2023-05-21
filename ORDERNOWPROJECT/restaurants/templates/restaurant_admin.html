@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Restaurante</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+<h3>Ha ingresado como administrador de {{ restaurant }} </h3>
+<hr>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+
+        <h4 class="card-title">Generar Mesas</h4>
+        <br>
+        <form action="">
+            <select class="custom-select mb-3" id="inputGroupSelect01" name="table_amount">
+                <option selected>Cantidad de mesas</option>
+                {% for i in table_number %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary mb-3">Generar mesas</button>
+        </form>
+
+    </div>
+</div>
+{% endblock content %}
+</body>
+</html>
